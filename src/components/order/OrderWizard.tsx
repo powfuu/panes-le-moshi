@@ -226,7 +226,12 @@ export function OrderWizard() {
   return (
     <div className="paper min-h-[70vh] pb-36 lg:pb-20">
       <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6 sm:pt-12">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+        >
           <div>
             <h1 className="font-display text-[clamp(2.4rem,7vw,3.8rem)] font-semibold italic leading-none">Tu pedido</h1>
             <p className="mt-2 flex items-center gap-2 text-cocoa-soft">
@@ -234,9 +239,14 @@ export function OrderWizard() {
             </p>
           </div>
           <Stepper step={step} onStep={goTo} />
-        </div>
+        </motion.div>
 
-        <div className="mt-8 grid items-start gap-8 lg:grid-cols-[1fr_380px]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-8 grid items-start gap-8 lg:grid-cols-[1fr_380px]"
+        >
           <div className="relative min-w-0">
             <AnimatePresence mode="wait" custom={dir} initial={false}>
               <motion.div
@@ -250,12 +260,15 @@ export function OrderWizard() {
                 {step === 0 && (
                   <section aria-labelledby="s0" className="space-y-3">
                     <h2 id="s0" className="sr-only">Elige tus panes</h2>
-                    {products.map((p) => {
+                    {products.map((p, i) => {
                       const qty = lines[p.id] ?? 0;
                       return (
                         <motion.div
                           key={p.id}
                           layout
+                          initial={{ opacity: 0, y: 16 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
                           className={`flex items-center gap-3 rounded-[24px] bg-white/80 p-3 ring-1 transition sm:gap-5 sm:p-4 ${
                             qty ? "ring-2 ring-pine" : "ring-cocoa/8"
                           }`}
@@ -534,7 +547,7 @@ export function OrderWizard() {
             {serverError && <p className="mt-4 rounded-xl bg-poinsettia/90 p-3 text-sm font-medium">{serverError}</p>}
             <PrimaryButton onClick={onPrimary} disabled={submitting || (step === 0 && count === 0)} loading={submitting} label={primaryLabel} />
           </aside>
-        </div>
+        </motion.div>
       </div>
 
       {/* Toast: confirmar efectivo */}
