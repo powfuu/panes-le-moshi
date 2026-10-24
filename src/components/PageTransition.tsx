@@ -1,8 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 export function PageTransition({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
