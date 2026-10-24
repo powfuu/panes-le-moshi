@@ -1,0 +1,5 @@
+﻿.env.local
+supabase
+.claude
+.next
+node_modules
